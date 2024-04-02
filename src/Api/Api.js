@@ -1,4 +1,3 @@
-import React from "react";
 import axios from "axios";
 
 class Api {
@@ -11,10 +10,6 @@ class Api {
     return axios.get(url).then((response) => response.data.items);
   }
 
-  getTagByName(name) {
-    const url = `${this.baseUrl}tags/${name}?site=stackoverflow`;
-    return axios.get(url).then((response) => response.data.items[0]);
-  }
 }
 
 export default Api;

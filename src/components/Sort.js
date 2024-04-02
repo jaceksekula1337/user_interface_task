@@ -1,19 +1,24 @@
-import React, { useState } from "react";
+import { Select, FormControl, InputLabel } from "@mui/material";
 
-function Sort() {
-  const [sortBy, setSortBy] = useState("popular");
-  const [sortOrder, setSortOrder] = useState("desc");
+function Sort({ sortBy, setSortBy }) {
+  const handleSortChange = (e) => {
+    setSortBy(e.target.value);
+  };
 
   return (
-    <div>
-      <select value={sortBy} onChange={(e) => setSortBy(e.target.value)}>
-        <option value="name">Nazwa</option>
-        <option value="popular">Popularność</option>
-      </select>
-      <select value={sortOrder} onChange={(e) => setSortOrder(e.target.value)}>
-        <option value="asc">Rosnąco</option>
-        <option value="desc">Malejąco</option>
-      </select>
+    <div className="mb-4 p-10">
+      <FormControl variant="outlined" className="w-full">
+        <InputLabel htmlFor="sort-select">Sortuj według</InputLabel>
+        <Select
+          value={sortBy}
+          onChange={handleSortChange}
+          label="Sortuj według"
+          id="sort-select"
+        >
+          <option value="name">Nazwa</option>
+          <option value="popular">Popularność</option>
+        </Select>
+      </FormControl>
     </div>
   );
 }

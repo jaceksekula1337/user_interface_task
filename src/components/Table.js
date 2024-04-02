@@ -1,24 +1,26 @@
-import React from "react";
+import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from "@mui/material";
 
-function Table({ tags }) {
+function Tables({ tags }) {
   return (
-    <table>
-      <thead>
-        <tr>
-          <th>Nazwa</th>
-          <th>Liczba pytań</th>
-        </tr>
-      </thead>
-      <tbody>
-        {tags.map((tag) => (
-          <tr key={tag.name}>
-            <td>{tag.name}</td>
-            <td>{tag.count}</td>
-          </tr>
-        ))}
-      </tbody>
-    </table>
+    <TableContainer className="shadow overflow-x-auto rounded">
+      <Table>
+        <TableHead>
+          <TableRow>
+            <TableCell className="text-left font-bold">Nazwa</TableCell>
+            <TableCell className="text-left font-bold">Liczba pytań</TableCell>
+          </TableRow>
+        </TableHead>
+        <TableBody>
+          {tags.map((tag) => (
+            <TableRow key={tag.name}>
+              <TableCell className="text-left">{tag.name}</TableCell>
+              <TableCell className="text-left">{tag.count}</TableCell>
+            </TableRow>
+          ))}
+        </TableBody>
+      </Table>
+    </TableContainer>
   );
 }
 
-export default Table;
+export default Tables;
