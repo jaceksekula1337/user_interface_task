@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import Sort from "../components/Sort";
 
 export default {
@@ -6,11 +6,17 @@ export default {
   component: Sort,
 };
 
-const Template = (args) => <Sort {...args} />;
+const Template = (args) => {
+  const [sortBy, setSortBy] = useState(args.sortBy);
+
+  const handleSortChange = (value) => {
+    setSortBy(value);
+  };
+
+  return <Sort {...args} sortBy={sortBy} setSortBy={handleSortChange} />;
+};
 
 export const Primary = Template.bind({});
 Primary.args = {
-  sortBy: "name", // Initial sort value
-  setSortBy: (value) => console.log("Sort by:", value), // Replace with actual function to update sort state
+  sortBy: "name",
 };
-

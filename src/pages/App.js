@@ -2,7 +2,7 @@ import Dashboard from "../components/Dashboard";
 import Table from "../components/Table";
 import Sort from "../components/Sort";
 import Pagination from "../components/Pagination";
-import PageSizeSelector from "../components/PageSize";
+import PageSize from "../components/PageSize";
 import Api from "../Api/Api";
 
 import { useState, useEffect, filterText } from "react";
@@ -21,7 +21,8 @@ function App() {
 
     setIsLoading(true);
 
-    api.getTagsWithState()
+    api
+      .getTagsWithState()
       .then((response) => {
         setIsLoading(false);
         setTags(response.tags);
@@ -57,12 +58,11 @@ function App() {
       <div className="w-1/2 mx-auto mt-5">
         <div className="flex justify-between px-5 mb-5">
           <Sort sortBy={sortBy} setSortBy={setSortBy} />
-          <PageSizeSelector pageSize={pageSize} setPageSize={setPageSize} />
+          <PageSize pageSize={pageSize} setPageSize={setPageSize} />
         </div>
         {isLoading && (
           <div className="text-center text-green-200">
             <p>Loading data...</p>
-
           </div>
         )}
         {error && <p className="text-center text-red-500">Błąd: {error}</p>}

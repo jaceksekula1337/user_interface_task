@@ -1,7 +1,7 @@
 import React from "react";
 import { TextField, Stack } from "@mui/material";
 
-function PageSizeSelector({
+function PageSize({
   pageSize,
   setPageSize,
   minPageSize = 5,
@@ -13,7 +13,6 @@ function PageSizeSelector({
       Math.max(newPageSize, minPageSize),
       maxPageSize
     );
-
     setPageSize(clampedPageSize);
   };
 
@@ -34,4 +33,4 @@ function PageSizeSelector({
   );
 }
 
-export default PageSizeSelector;
+export default PageSize;
