@@ -1,4 +1,4 @@
-import { Select, FormControl, InputLabel } from "@mui/material";
+import { Select, FormControl, MenuItem } from "@mui/material";
 
 function Sort({ sortBy, setSortBy }) {
   const handleSortChange = (e) => {
@@ -6,17 +6,20 @@ function Sort({ sortBy, setSortBy }) {
   };
 
   return (
-    <div className="mb-4 p-10">
-      <FormControl variant="outlined" className="w-full">
-        <InputLabel htmlFor="sort-select">Sortuj według</InputLabel>
+    <div className="flex justify-center items-center">
+      <FormControl variant="outlined">
+        <span className="text-center text-white">Sortuj według:</span>
         <Select
           value={sortBy}
           onChange={handleSortChange}
-          label="Sortuj według"
-          id="sort-select"
+          className="sm:w-36 w-16 mt-4 bg-gray-200"
         >
-          <option value="name">Nazwa</option>
-          <option value="popular">Popularność</option>
+          <MenuItem value="name" className="bg-gray-200">
+            Nazwa
+          </MenuItem>
+          <MenuItem value="popular" className="bg-gray-200">
+            Popularność
+          </MenuItem>
         </Select>
       </FormControl>
     </div>
