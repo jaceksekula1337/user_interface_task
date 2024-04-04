@@ -60,9 +60,9 @@ function App() {
           <PageSizeSelector pageSize={pageSize} setPageSize={setPageSize} />
         </div>
         {isLoading && (
-          <div className="text-center">
+          <div className="text-center text-green-200">
             <p>Loading data...</p>
-            {/* Optionally add a spinner or other loading indicator */}
+
           </div>
         )}
         {error && <p className="text-center text-red-500">Błąd: {error}</p>}

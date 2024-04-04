@@ -8,10 +8,7 @@ function PageSizeSelector({
   maxPageSize = 12,
 }) {
   const handlePageSizeChange = (e) => {
-    // Parse the input value as a number
     const newPageSize = Number(e.target.value);
-
-    // Clamp the value between min and max limits
     const clampedPageSize = Math.min(
       Math.max(newPageSize, minPageSize),
       maxPageSize
