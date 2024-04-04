@@ -1,7 +1,5 @@
-import React from "react";
 import Dashboard from "../components/Dashboard";
 import Table from "../components/Table";
-import Filters from "../components/Filters";
 import Sort from "../components/Sort";
 import Pagination from "../components/Pagination";
 import Api from "../Api/Api";
@@ -13,21 +11,24 @@ function App() {
   const [currentPage, setCurrentPage] = useState(1);
   const [pageSize, setPageSize] = useState(10);
   const [sortBy, setSortBy] = useState("popular");
-  const [sortOrder, setSortOrder] = useState("desc");
 
   useEffect(() => {
     const api = new Api();
-    api.getTags().then((data) => setTags(data));
+    api.getTags().then((data) => {
+      setTags(data);
+    });
   }, []);
 
   const filteredTags = tags.filter(
-    (tag) => tag?.name.toLowerCase().indexOf(filterText?.toLowerCase()) !== -1
+    (tag) =>
+      tag.name.toLowerCase().indexOf((filterText || "").toLowerCase()) !== -1
   );
+
   const sortedTags = filteredTags.sort((a, b) => {
     if (sortBy === "name") {
       return a.name.localeCompare(b.name);
     } else {
-      return a.count - b.count;
+      return b.count - a.count;
     }
   });
   const paginatedTags = sortedTags.slice(
@@ -38,15 +39,15 @@ function App() {
   return (
     <div>
       <Dashboard />
-      <Table tags={paginatedTags} />
-      <Filters />
-      <Sort />
       <Pagination
         currentPage={currentPage}
         pageSize={pageSize}
         totalPages={Math.ceil(filteredTags.length / pageSize)}
         setCurrentPage={setCurrentPage}
+        setPageSize={setPageSize}
       />
+      <Table tags={paginatedTags} />
+      <Sort sortBy={sortBy} setSortBy={setSortBy} />
     </div>
   );
 }
