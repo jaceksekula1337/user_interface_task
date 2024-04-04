@@ -2,6 +2,7 @@ import Dashboard from "../components/Dashboard";
 import Table from "../components/Table";
 import Sort from "../components/Sort";
 import Pagination from "../components/Pagination";
+import PageSizeSelector from "../components/PageSize";
 import Api from "../Api/Api";
 
 import { useState, useEffect, filterText } from "react";
@@ -12,11 +13,24 @@ function App() {
   const [pageSize, setPageSize] = useState(10);
   const [sortBy, setSortBy] = useState("popular");
 
+  const [error, setError] = useState(null);
+  const [isLoading, setIsLoading] = useState(false);
+
   useEffect(() => {
     const api = new Api();
-    api.getTags().then((data) => {
-      setTags(data);
-    });
+
+    setIsLoading(true);
+
+    api.getTagsWithState()
+      .then((response) => {
+        setIsLoading(false);
+        setTags(response.tags);
+        setError(response.error);
+      })
+      .catch((error) => {
+        setIsLoading(false);
+        setError(error.message);
+      });
   }, []);
 
   const filteredTags = tags.filter(
@@ -31,23 +45,34 @@ function App() {
       return b.count - a.count;
     }
   });
+
   const paginatedTags = sortedTags.slice(
     (currentPage - 1) * pageSize,
     currentPage * pageSize
   );
 
   return (
-    <div>
+    <div className="bg-gray-700 min-h-screen">
       <Dashboard />
+      <div className="w-1/2 mx-auto mt-5">
+        <div className="flex justify-between px-5 mb-5">
+          <Sort sortBy={sortBy} setSortBy={setSortBy} />
+          <PageSizeSelector pageSize={pageSize} setPageSize={setPageSize} />
+        </div>
+        {isLoading && (
+          <div className="text-center">
+            <p>Loading data...</p>
+            {/* Optionally add a spinner or other loading indicator */}
+          </div>
+        )}
+        {error && <p className="text-center text-red-500">Błąd: {error}</p>}
+        {!error && !isLoading && <Table tags={paginatedTags} />}
+      </div>
       <Pagination
         currentPage={currentPage}
-        pageSize={pageSize}
         totalPages={Math.ceil(filteredTags.length / pageSize)}
         setCurrentPage={setCurrentPage}
-        setPageSize={setPageSize}
       />
-      <Table tags={paginatedTags} />
-      <Sort sortBy={sortBy} setSortBy={setSortBy} />
     </div>
   );
 }

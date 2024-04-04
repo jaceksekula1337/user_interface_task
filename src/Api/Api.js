@@ -5,11 +5,27 @@ class Api {
     this.baseUrl = "https://api.stackexchange.com/2.2/";
   }
 
-  getTags() {
+  async getTagsWithState() {
     const url = `${this.baseUrl}tags?order=desc&sort=popular&site=stackoverflow`;
-    return axios.get(url).then((response) => response.data.items);
+
+    try {
+      const response = await axios.get(url);
+      return {
+        tags: response.data.items,
+        error: null,
+      };
+    } catch (error) {
+      console.error("Error fetching data:", error);
+      return {
+        tags: [],
+        error: error.message,
+      };
+    }
   }
 
+  getTags() {
+    return this.getTagsWithState().then((response) => response.tags);
+  }
 }
 
 export default Api;
