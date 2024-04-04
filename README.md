@@ -1,5 +1,6 @@
 ![mediporta_task_visualization](https://github.com/jaceksekula1337/user_interface_task/assets/110597769/891db4b8-2d86-4824-918c-9e1161ecac60)
 
+![image](https://github.com/jaceksekula1337/user_interface_task/assets/110597769/26fb0a1c-cc63-47f2-81fb-062c2ae80b5e)
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
